@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lí sản phẩm</title>
+    <script src="productManager.js"></script>
+    <style>
+        table{
+            width: 400px;
+        }
+    </style>
+</head>
+<body style="background-color: aquamarine">
+<center>
+    <h3>Thêm Sản Phẩm</h3>
+    <input type="text" placeholder="Sản phầm mới" id="new-product"> <!--onchange="add()"-->
+    <span id="add"><button onclick="add()">Thêm mới</button></span>
+    <span id="btn-edit"></span>
+
+    <h3>Danh sách sản phẩm</h3>
+    <table border="1px" style="background-color: antiquewhite">
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th colspan="2">Hành động</th>
+        </tr>
+        <tbody id="list">
+
+        </tbody>
+    </table>
+</center>
+</body>
+</html>

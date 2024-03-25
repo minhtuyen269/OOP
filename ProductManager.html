@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sản phẩm</title>
+</head>
+<body>
+<h1>Quản Lý Sản Phẩm</h1>
+
+<!-- Form để thêm sản phẩm mới -->
+<form id="addProductForm">
+    <label for="productName">Tên Sản Phẩm:</label>
+    <input type="text" id="productName" required>
+    <button type="submit">Thêm</button>
+</form>
+
+<!-- Danh sách sản phẩm -->
+<table id="productList">
+    <thead>
+    <tr>
+        <th>Số Thứ Tự</th>
+        <th>Tên Sản Phẩm</th>
+        <th></th> <!-- Để chứa nút xoá sản phẩm -->
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<!-- Form để sửa tên sản phẩm -->
+<form id="editProductForm" style="display: none;">
+    <label for="editedProductName">Sửa Tên Sản Phẩm:</label>
+    <input type="text" id="editedProductName" required>
+    <button type="submit">Sửa</button>
+</form>
+
+<script src="app.js"></script>
+</body>
+<script>
+    // Mảng chứa danh sách sản phẩm
+    let products = ["Sản phẩm 1", "Sản phẩm 2", "Sản phẩm 3"];
+
+    // Hàm hiển thị danh sách sản phẩm
+    function displayProductList() {
+        let tableBody = document.querySelector("#productList tbody");
+        tableBody.innerHTML = "";
+
+        products.forEach((product, index) => {
+            let row = `<tr>
+            <td>${index + 1}</td>
+            <td>${product}</td>
+            <td><button onclick="editProduct(${index})">Sửa</button> <button onclick="deleteProduct(${index})">Xoá</button></td>
+        </tr>`;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Hàm thêm một sản phẩm mới vào danh sách
+    function addProduct(event) {
+        event.preventDefault();
+        let productNameInput = document.getElementById("productName");
+        let productName = productNameInput.value.trim();
+
+        if (productName) {
+            products.push(productName);
+            displayProductList();
+            productNameInput.value = "";
+            alert("Thêm sản phẩm thành công!");
+        } else {
+            alert("Vui lòng nhập tên sản phẩm!");
+        }
+    }
+
+    // Hàm sửa tên sản phẩm
+    function editProduct(index) {
+        let editedProductName = prompt("Nhập tên mới cho sản phẩm:", products[index]);
+        if (editedProductName !== null) {
+            products[index] = editedProductName.trim();
+            displayProductList();
+            alert("Sửa tên sản phẩm thành công!");
+        }
+    }
+
+    // Hàm xoá một sản phẩm từ danh sách
+    function deleteProduct(index) {
+        if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này?")) {
+            products.splice(index, 1);
+            displayProductList();
+            alert("Xoá sản phẩm thành công!");
+        }
+    }
+
+    // Gán sự kiện submit cho form thêm sản phẩm
+    document.getElementById("addProductForm").addEventListener("submit", addProduct);
+
+    // Hiển thị danh sách sản phẩm ban đầu
+    displayProductList();
+</script>
+</html>
